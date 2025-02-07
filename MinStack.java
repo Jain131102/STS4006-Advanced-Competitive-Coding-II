@@ -1,54 +1,78 @@
-class MinStack {
+import java.util.*;
+class MinStack 
+{
+    Stack<Integer> stack = new Stack<>();
+    Stack<Integer> minStack = new Stack<>();
 
-    int min=Integer.MAX_VALUE;
-    static class pair{
-        int a,b;
-
-        // public pair(int a,int b)
-        // {
-        //     this.a=a;
-        //     this.b=b;
-        // }
-    }
-    Stack<pair> s;
-    public MinStack() {
-        s=new Stack<>();
-    }
-    
-    public void push(int val) {
-        pair p=new pair();
-        p.a=val;
-        if(val<min)
-        min=val;
-        p.b=min;
-
-        s.push(p);
-    }
-    
-    public void pop() {
-        s.pop();
-
-        if (!s.isEmpty()) {
-            min = s.peek().b;
-        } else {
-            min = Integer.MAX_VALUE;
+    public void push(int x)
+    {
+        stack.push(x);
+        if (minStack.isEmpty() || x <= minStack.peek()) 
+        {
+            minStack.push(x);
         }
     }
-    
-    public int top() {
-        return s.peek().a;
+
+    public void pop() 
+    {
+       if (!stack.isEmpty()) 
+       {
+          if (stack.peek().equals(minStack.peek())) 
+          {
+             minStack.pop();
+          }
+            stack.pop();
+        }
     }
-    
-    public int getMin() {
-        return s.peek().b;
+
+    public int top() 
+    {
+        if (stack.isEmpty()) 
+            return -1; 
+        return stack.peek();
+    }
+
+    public int getMin() 
+    {
+        if (minStack.isEmpty()) 
+            return -1; 
+        return minStack.peek();
     }
 }
 
-/**
- * Your MinStack object will be instantiated and called as such:
- * MinStack obj = new MinStack();
- * obj.push(val);
- * obj.pop();
- * int param_3 = obj.top();
- * int param_4 = obj.getMin();
- */
+public class Main 
+{
+    public static void main(String[] args) 
+    {
+        Scanner sc = new Scanner(System.in);
+        MinStack minStack = new MinStack();
+        int operations = sc.nextInt();
+        for (int i = 0; i < operations; i++) 
+        {
+            String operation = sc.next();
+            switch (operation) 
+            {
+                case "push":
+                    int value = sc.nextInt();
+                    minStack.push(value);
+                    break;
+
+                case "pop":
+                    minStack.pop();
+                    break;
+
+                case "top":
+                    System.out.println(minStack.top());
+                    break;
+
+                case "getMin":
+                    System.out.println(minStack.getMin());
+                    break;
+
+                default:
+                    System.out.println("Invalid operation");
+                    break;
+            }
+        }
+    }
+}
