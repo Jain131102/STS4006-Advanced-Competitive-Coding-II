@@ -24,7 +24,7 @@ public class RodCutting {
         int n = sc.nextInt();
 
         int[] price = new int[n];
-        # System.out.println("Enter the prices for each piece length (1 to " + n + "):");
+        // System.out.println("Enter the prices for each piece length (1 to " + n + "):");
         for (int i = 0; i < n; i++) {
             price[i] = sc.nextInt();
         }
