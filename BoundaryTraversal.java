@@ -70,8 +70,7 @@ class Solution {
         return ans;
         
         left(root.left,ans);
-        leaf(root.left,ans);
-        leaf(root.right,ans);
+        leaf(root,ans);
         right(root.right,ans);
         
         return ans;
