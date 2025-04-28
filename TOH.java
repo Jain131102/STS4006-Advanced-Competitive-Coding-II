@@ -1,19 +1,29 @@
-public class TOH {
-    public static void toh(int n,String s,String h,String d)
+// JAVA recursive function to
+// solve tower of hanoi puzzle
+import java.io.*;
+import java.math.*;
+import java.util.*;
+class TOH {
+    static void towerOfHanoi(int n, char from_rod,
+                             char to_rod, char aux_rod)
     {
-        if (n == 1) 
-        {
-            System.out.println("Move disk 1 from " + s + " to " + d);
+        if (n == 0) {
             return;
         }
-        else
-        {
-            toh(n-1, s, d, h);
-            System.out.println("Move disk " + n + " from " + s + " to " + d);            
-            toh(n-1, h, s, d);
-        }
+        towerOfHanoi(n - 1, from_rod, aux_rod, to_rod); // ABC
+        System.out.println("Move disk " + n + " from rod "
+                           + from_rod + " to rod "
+                           + to_rod);
+        towerOfHanoi(n - 1, aux_rod, to_rod, from_rod); //BCA
     }
-    public static void main(String[] args) {
-        toh(2,"Source","Helper","Destination");
+
+    // Driver code
+    public static void main(String args[])
+    {
+        int N = 3;
+
+        // A, B and C are names of rods -> source , destination , helper
+        towerOfHanoi(N, 'A', 'C', 'B');
     }
 }
+
