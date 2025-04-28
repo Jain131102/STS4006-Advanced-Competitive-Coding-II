@@ -1,20 +1,45 @@
 import java.util.*;  // for Scanner and Arrays
 
 public class LIS {
-    public static int lengthOfLIS(int[] nums) {
-        int n = nums.length;
-        int dp[] = new int[n];
-        Arrays.fill(dp, 1);
-        int ans = 1;
+    public static void lengthOfLIS(int[] nums) {
+        int n=nums.length;
+        int dp[]=new int[n];
+        int prev[]=new int[n];
+        Arrays.fill(dp,1);
+        Arrays.fill(prev,-1);
 
-        for (int i = 1; i < n; i++) {
-            for (int j = 0; j < i; j++) {
-                if (nums[i] > nums[j] && dp[i] < dp[j] + 1)
-                    dp[i] = dp[j] + 1;
+        int ans=1;
+        int ansIndex=0;
 
-                ans = (int) Math.max(ans, dp[i]);
+        for(int i=1;i<n;i++)
+        {
+            for(int j=0;j<i;j++)
+            {
+                if(nums[i]>nums[j] && dp[i]<dp[j]+1)
+                {
+                    dp[i]=dp[j]+1;
+                    prev[i]=j;
+                }
+
+                if(dp[i]>ans)
+                {
+                    ans=dp[i];
+                    ansIndex=i;
+                }
             }
         }
+
+        ArrayList<Integer> list=new ArrayList<>();
+
+        while(ansIndex!=-1)
+        {
+            list.add(nums[ansIndex]);
+            ansIndex=prev[ansIndex];
+        }
+
+        Collections.reverse(list);
+        System.out.println(list);
+        
         return ans;
     }
 
